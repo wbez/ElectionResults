@@ -54,7 +54,7 @@ for race in ill.races:
     # Loop through the statewide candidate results, and append them
     # in a format we like into the data dict's candidate list.
 
-print data
+print json.dumps(data)
 # Then dump the data dict out as JSON
 # with open('data.json', 'w') as outfile:
 #   json.dump(data, outfile)
