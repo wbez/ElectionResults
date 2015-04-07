@@ -6,6 +6,8 @@ except ImportError:
     import simplejson as json
 from config import config
 from ordereddict import OrderedDict
+import locale
+locale.setlocale(locale.LC_ALL, 'en_US')
 
 
 client = AP(config["user"], config["pwd"])
@@ -34,7 +36,7 @@ for race in ill.races:
             'name': result.candidate.name,
             'last_name': result.candidate.last_name,
             'first_name': result.candidate.first_name,
-            'vote_total': "{0:,}".format(result.vote_total),
+            'vote_total': locale.format("%d", result.vote_total, grouping=True),
             'is_incumbent': result.candidate.is_incumbent,
             'vote_percent': vote_percent,
             'is_winner': result.candidate.is_winner,
