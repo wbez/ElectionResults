@@ -34,7 +34,7 @@ for race in ill.races:
             'name': result.candidate.name,
             'last_name': result.candidate.last_name,
             'first_name': result.candidate.first_name,
-            'vote_total': "{:,}".format(result.vote_total),
+            'vote_total': "{0:,}".format(result.vote_total),
             'is_incumbent': result.candidate.is_incumbent,
             'vote_percent': vote_percent,
             'is_winner': result.candidate.is_winner,
