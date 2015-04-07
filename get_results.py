@@ -5,7 +5,7 @@ try:
 except ImportError:
     import simplejson as json
 from config import config
-from collections import OrderedDict
+from ordereddict import OrderedDict
 
 
 client = AP(config["user"], config["pwd"])
