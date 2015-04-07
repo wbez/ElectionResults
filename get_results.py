@@ -23,10 +23,8 @@ data = {
 # Loop through the statewide races results, and append them
 # in a format we like into the data dict's race list.
 for race in ill.races:
-    print race.state.results
     results = []
     for result in race.state.results:
-        print result.vote_total_percent
         if result.vote_total_percent != None:
             vote_percent = round(float(result.vote_total_percent),2)
         else:
