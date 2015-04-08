@@ -45,7 +45,7 @@ for race in ill.races:
         'office_name': race.office_name,
         'precincts_total': race.state.precincts_total,
         'precincts_reporting': race.state.precincts_reporting,
-        'precincts_pct': 100*(race.state.precincts_reporting/float(race.state.precincts_total)),
+        'precincts_pct': round(100*(race.state.precincts_reporting/float(race.state.precincts_total)),2),
         'results': results
     }))
 
