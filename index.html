@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WBEZ 2015 Chicago Runoff Election Results</title>
+    <title>WBEZ 2016 Illinois Primary Results</title>
 
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -73,52 +73,61 @@
     </header>
 
     <script id="races-template" type="text/x-handlebars-template">
-      <div class="col-xs-12 section">Mayor</div>
-      {{#each_when races "office_name" "Mayor"}}
-        <div class="col-xs-12 race">
-          <span class="precincts">Precints reporting: {{precincts_pct}} percent ({{precincts_reporting}} of {{precincts_total}})</span><br>
-          {{#each results}}
-            <div class="row">
-              <div class="candidate col-xs-6 col-sm-4">{{#if is_incumbent}}*{{/if}}{{name}}{{#if is_winner}}<i class="fa fa-check"></i>{{/if}}</div>
-              <div class="votes col-xs-6 col-sm-2">{{vote_total}}</div>
-              <div class="col-sm-6 hidden-xs vote_bar_container">
-                <div class="vote_bar col-md-4" style="width:{{vote_percent}}%"></div>
+
+    {{#each races}}
+      <div class="office">
+        <div class="col-xs-12 section">{{office_name}}</div>
+      {{#each seats}}
+        <div class="seat">
+          <div class="col-xs-12 title">{{seat_name}}</div>
+        {{#each parties}}
+          <div class="col-xs-12 col-sm-6 race">
+            <div class="row party">{{party}}</div>
+            {{#if races.[1].precincts_total}}
+            <div class="row table-header">
+              <div class="candidate col-xs-4">Candidate</div>
+              <div class="col-sm-2 col-xs-4 vote_total">Votes</div>
+              <div class="col-sm-2 col-xs-4 vote_pct">Vote %</div>
+              <div class="col-sm-3 hidden-xs"></div>
+            </div>
+            {{else}}
+            <div class="row table-header"></div>
+            {{/if}}
+          {{#each races}}
+            {{#each results}}
+            <div class="row result">
+              <div class="candidate col-xs-6">{{#if is_winner}}<i class="fa fa-check"></i>{{/if}}{{name}}{{#if is_incumbent}} <i class="fa fa-info-circle"></i>{{/if}}</div>
+              <div class="col-sm-2 col-xs-3 vote_total">{{vote_total}}</div>
+              <div class="col-sm-2 col-xs-3 vote_pct">{{vote_percent}}%</div>
+              <div class="col-sm-2 hidden-xs vote_bar_container">
+                <div class="vote_bar" style="width:{{vote_percent}}%"></div>
               </div>
             </div>
-          {{/each}}
-        </div> 
+            {{/each}}
+            {{#if precincts_total}}
+            <span class="precincts">Precincts reporting: {{precincts_pct}} percent ({{precincts_reporting}} of {{precincts_total}})</span><br>
+            {{else}}
+            <div class="precincts">{{name}}</div>
+            {{/if}} 
 
-        {{#everyOther @index 2 }}
-          <div class="clearfix visible-sm"></div>
-        {{/everyOther}}
-      {{/each_when}}
-
-      <div class="col-xs-12 section">City Council</div>
-      {{#each_when_not races "office_name" "Mayor"}}
-        <div class="col-xs-12 col-sm-6 race">
-          <div class="title">{{name}}</div>
-          <span class="precincts">Precints reporting: {{precincts_pct}} percent ({{precincts_reporting}} of {{precincts_total}})</span><br>
-          {{#each results}}
-            <div class="row">
-              <div class="candidate col-xs-6 col-md-4">{{#if is_incumbent}}*{{/if}}{{name}}{{#if is_winner}}<i class="fa fa-check"></i>{{/if}}</div>
-              <div class="votes col-xs-6 col-md-2">{{vote_total}} <span class="visible-xs">{{vote_percent}}%</span></div>
-              <div class="col-md-6 hidden-xs hidden-sm vote_bar_container"><div class="vote_bar col-md-4" style="width:{{vote_percent}}%"></div></div>
-            </div>
+          </div>
           {{/each}}
-        </div> 
-      {{/each_when_not}}
+        {{/each}}
+        </div>
+      {{/each}}
+      </div>
+    {{/each}}
     </script> 
   
   <div class="container">
-    <div class="row header">
-      <h1 class="col-md-12">2015 Chicago Runoff Election Results</h1>
+    <div class="row">
+      <h1 class="col-md-12">2016 Illinois Primary Election Results</h1>
       <div class="col-md-8">
-        <p>On April 7 Chicago will hold the first-ever Mayoral Runoff election in the city's history.</p>
-        <p>See results below, photos from the parties and find out who is funding all the candidates.</p>
+        <p>See results below.</p>
       </div>
     </div>
     <div class="col-md-12">
-        <small>* = incumbent</small> | <i class="fa fa-check"></i> = winner
+        <small><i class="fa fa-info-circle"></i> = incumbent</small> | <i class="fa fa-check"></i> = winner
       </div>
   </div>
 
@@ -142,7 +151,7 @@
       var $races = $('.race-holder');
       
       $( document ).ready(function() {
-        $.getJSON( "data.json", function( results ) {
+        $.getJSON( "data_test_030916.json", function( results ) {
           var source = $("#races-template").html();
           var template = Handlebars.compile(source);
           var html = template(results);

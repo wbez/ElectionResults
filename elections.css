@@ -2,11 +2,16 @@ body {
 	font-family: 'Source Sans Pro', sans-serif;
 	font-size:16px;
 	margin-bottom: 10px;
+	color:#252525;
+}
+
+h1 {
+	font-family:"CharterITCStd-Bold",'Palatino Bold',serif;
 }
 
 .header {
-	font-family:'Lora',Georga,serif;
-	border-bottom: 2px solid #FF0000;
+	font-family:"CharterITCStd-Bold",'Palatino Bold',serif;
+	border-bottom: 2px solid #EC0101;
 }
 
 .return a{
@@ -20,12 +25,14 @@ body {
 
 .section {
 	font-size: 36px;
-	font-family:'Lora',Georga,serif;
+	font-family:"CharterITCStd-Bold",'Palatino Bold',serif;
+	color:#000000;
 }
 
 .precincts {
 	font-size: 14px;
 	font-style: italic;
+	color: #848687;
 }
 
 .race-holder {
@@ -53,8 +60,8 @@ body {
 
 .title {
 	width:100%;
-	font-family:'Lora',Georga,serif;
-	color: #333;
+	font-family:"CharterITCStd-Bold",'Palatino Bold',serif;
+	color: #000000;
 	font-size: 24px;
 	border-bottom: 2px solid #FF0000;
 }
@@ -82,13 +89,40 @@ body {
 
 .vote_bar {
 	height:16px;
-	background-color: #B3DDF2;
+	background-color: #72A2A9;
 	padding:0px;
 }
 
 .vote_bar_container {
-	background-color: #f5f5f5;
-	padding:0px;
+	background-color: #F5F5F5;
+	padding:0;
+	line-height: 16px;
+}
+
+.result {
+	margin-bottom: 5px;
+}
+.race .row {
+	margin: 0 0px 10px -15px;
+}
+
+.race .row.party {
+	background: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    color: #86898e;
+    font-family: "Source Sans Pro",sans-serif;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1;
+    margin: 0 0 10px 0px;
+    padding: 5px;
+    text-transform: uppercase;
+}
+
+.table-header {
+	text-transform: uppercase;
+	font-weight: 700;
+	font-size: 12px;
 }
 
 header {
