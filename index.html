@@ -95,7 +95,7 @@
             {{/if}}
           {{#each races}}
             {{#each results}}
-            <div class="row result">
+            <div class="row result {{#if is_winner}}winner{{/if}}">
               <div class="candidate col-xs-6">{{#if is_winner}}<i class="fa fa-check"></i>{{/if}}{{name}}{{#if is_incumbent}} <i class="fa fa-info-circle"></i>{{/if}}</div>
               <div class="col-sm-2 col-xs-3 vote_total">{{vote_total}}</div>
               <div class="col-sm-2 col-xs-3 vote_pct">{{vote_percent}}%</div>

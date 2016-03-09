@@ -1,6 +1,6 @@
 body {
 	font-family: 'Source Sans Pro', sans-serif;
-	font-size:16px;
+	font-size:14px;
 	margin-bottom: 10px;
 	color:#252525;
 }
@@ -30,7 +30,7 @@ h1 {
 }
 
 .precincts {
-	font-size: 14px;
+	font-size: 12px;
 	font-style: italic;
 	color: #848687;
 }
@@ -40,7 +40,7 @@ h1 {
 }
 
 .race {
-	font-size: 16px;
+	font-size: 14px;
 	margin-bottom: 20px;
 }
 
@@ -88,22 +88,29 @@ h1 {
 }
 
 .vote_bar {
-	height:16px;
+	height:10px;
 	background-color: #72A2A9;
 	padding:0px;
+	border-radius: 10px;
 }
 
 .vote_bar_container {
 	background-color: #F5F5F5;
 	padding:0;
-	line-height: 16px;
+	line-height: 10px;
+	border-radius: 10px;
 }
 
 .result {
 	margin-bottom: 5px;
+	border-bottom: 1px solid #C5C5C5;
+}
+
+.result.winner {
+	font-weight: 700;
 }
 .race .row {
-	margin: 0 0px 10px -15px;
+	margin: 0 0px 10px 0px;
 }
 
 .race .row.party {
@@ -117,6 +124,10 @@ h1 {
     margin: 0 0 10px 0px;
     padding: 5px;
     text-transform: uppercase;
+}
+
+.candidate {
+	padding:0;
 }
 
 .table-header {
