@@ -168,5 +168,5 @@ data = get_results()
 data = add_parties(data)
 # print data
 
-with open('data.json', 'w') as outfile:
+with open('/var/www/elections/2016/results/data.json', 'w') as outfile:
   json.dump(data, outfile)
