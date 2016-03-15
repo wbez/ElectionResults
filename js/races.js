@@ -7,7 +7,7 @@ templates['races'] = template({"1":function(container,depth0,helpers,partials,da
     + alias4(((helper = (helper = helpers.office_name || (depth0 != null ? depth0.office_name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"office_name","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.office_name || (depth0 != null ? depth0.office_name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"office_name","hash":{},"data":data}) : helper)))
-    + " <a class=\"return btn btn-primary\" href=\"#President\">Return to top</a></div>\n"
+    + " <a class=\"return btn btn-primary\" href=\"#top\">Return to top</a></div>\n"
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.seats : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "  </div>\n";
 },"2":function(container,depth0,helpers,partials,data) {
