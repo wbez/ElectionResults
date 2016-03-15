@@ -27,7 +27,7 @@ templates['races'] = template({"1":function(container,depth0,helpers,partials,da
     + ((stack1 = helpers["if"].call(alias1,((stack1 = ((stack1 = (depth0 != null ? depth0.races : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.precincts_total : stack1),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.program(6, data, 0),"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.races : depth0),{"name":"each","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "");
 },"4":function(container,depth0,helpers,partials,data) {
-    return "        <div class=\"row table-header\">\n          <div class=\"candidate col-xs-6\">Candidate</div>\n          <div class=\"col-sm-2 col-xs-3 vote_total\">Votes</div>\n          <div class=\"col-sm-2 col-xs-3 vote_pct\">Vote %</div>\n          <div class=\"col-sm-3 hidden-xs\"></div>\n        </div>\n";
+    return "        <div class=\"row table-header\">\n          <div class=\"candidate col-xs-6\">Candidate</div>\n          <div class=\"col-sm-2 col-xs-3 vote_total\">Votes</div>\n          <div class=\"col-sm-2 col-xs-3 vote_pct\">Vote %</div>\n          <div class=\"col-sm-2 hidden-xs\"></div>\n        </div>\n";
 },"6":function(container,depth0,helpers,partials,data) {
     var stack1;
 
