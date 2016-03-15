@@ -21,10 +21,10 @@ office_list = [
     "State's Attorney",
     'State House',
     'State Senate',
-    'County Auditor',
-    'County CEO',
-    'Recorder of Deeds',
     'Circuit Court Clerk',
+    'County CEO',
+    'County Auditor',
+    'Recorder of Deeds',
     'Comptroller',
     'Board Chairman',
     'County Coroner',
@@ -123,7 +123,11 @@ def add_parties(data):
 
     for office_name in data['races']:
         s = data['races'][office_name]['seats']
-        data['races'][office_name]['seats'] = OrderedDict(sorted(s.items(),key=lambda t: int(t[1]['seat_number'])))
+        if office_name in ["State's Attorney","Circuit Court Clerk","Recorder of Deeds","County Coroner"]:
+            data['races'][office_name]['seats'] = OrderedDict(sorted(s.items(),key=lambda t: t[0]))
+        else:
+            data['races'][office_name]['seats'] = OrderedDict(sorted(s.items(),key=lambda t: int(t[1]['seat_number'])))
+        
         for seat_name in data['races'][office_name]['seats']:
             for party_name in parties:
                 if party_name not in  data['races'][office_name]['seats'][seat_name]['parties']:
