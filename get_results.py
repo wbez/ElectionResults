@@ -33,6 +33,12 @@ office_list = [
     'Delegates',
 ]
 
+party_list = [
+    'Democrat',
+    'Republican',
+    'Green',
+]
+
 # mayor = ill.filter_races(name='Mayor Chicago')[0]
 # Now the ill variable holds all of the AP result data
 
@@ -58,22 +64,6 @@ def get_results():
                 precincts_pct = round(100*(race.state.precincts_reporting/float(race.state.precincts_total)),1)
             else:
                 precincts_pct = race.state.precincts_total
-
-            # if result.candidate.last_name == 'Sanders':
-            #     vote_percent = 38.5
-            #     is_winner = True
-
-            # if result.candidate.last_name == 'Clinton':
-            #     vote_percent = 47.2
-
-            # if result.candidate.last_name == 'Trump':
-            #     vote_percent = 35.2
-            #     is_winner = True
-
-            # if result.candidate.last_name == 'Cruz':
-            #     vote_percent = 25.9
-
-
             
             results.append({
                 'name': result.candidate.name,
@@ -87,6 +77,9 @@ def get_results():
 
         office_name = race.office_name
         seat_name = race.seat_name
+        if office_name == "U.S. Senate":
+            seat_name = ""
+
         seat_number = race.seat_number
         party = race.party
 
@@ -94,6 +87,8 @@ def get_results():
             party = 'Democrat'
         elif party == 'GOP':
             party = 'Republican'
+        elif party == 'Grn':
+            party = 'Green'
 
         if office_name not in data['races']:
             data['races'][office_name] = {'office_name':office_name, 'seats':OrderedDict()}
@@ -153,10 +148,13 @@ def add_parties(data):
 
             p = data['races'][office_name]['seats'][seat_name]['parties']
             data['races'][office_name]['seats'][seat_name]['parties'] = OrderedDict(sorted(p.items(),key=lambda t: t[0]))
+            
+            if 'Green' in data['races'][office_name]['seats'][seat_name]['parties']:
+                data['races'][office_name]['seats'][seat_name]['parties'] = OrderedDict((key, data['races'][office_name]['seats'][seat_name]['parties'][key]) for key in party_list)
 
-    data['races'] = OrderedDict(sorted(data['races'].items(),key=lambda t: t[0]))
+    # data['races'] = OrderedDict(sorted(data['races'].items(),key=lambda t: t[0]))
 
-    data['races']  = OrderedDict((key, data['races'][key]) for key in office_list)
+    data['races'] = OrderedDict((key, data['races'][key]) for key in office_list)
         
     return data
 
