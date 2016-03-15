@@ -71,53 +71,6 @@
         </svg>
       </a>
     </header>
-
-    <script id="races-template" type="text/x-handlebars-template">
-
-    {{#each races}}
-      <div class="office">
-        <div class="col-xs-12 section">{{office_name}}</div>
-      {{#each seats}}
-        <div class="seat">
-          <div class="col-xs-12 title">{{seat_name}}</div>
-        {{#each parties}}
-          <div class="col-xs-12 col-sm-6 race">
-            <div class="row party">{{party}}</div>
-            {{#if races.[0].precincts_total}}
-            <div class="row table-header">
-              <div class="candidate col-xs-6">Candidate</div>
-              <div class="col-sm-2 col-xs-3 vote_total">Votes</div>
-              <div class="col-sm-2 col-xs-3 vote_pct">Vote %</div>
-              <div class="col-sm-3 hidden-xs"></div>
-            </div>
-            {{else}}
-            <div class="row table-header">{{races.[1].precincts_total}}</div>
-            {{/if}}
-          {{#each races}}
-            {{#each results}}
-            <div class="row result {{#if is_winner}}winner{{/if}}">
-              <div class="candidate col-xs-6">{{#if is_winner}}<i class="fa fa-check"></i>{{/if}}{{name}}{{#if is_incumbent}} <i class="fa fa-info-circle"></i>{{/if}}</div>
-              <div class="col-sm-2 col-xs-3 vote_total">{{vote_total}}</div>
-              <div class="col-sm-2 col-xs-3 vote_pct">{{vote_percent}}%</div>
-              <div class="col-sm-2 hidden-xs vote_bar_container">
-                <div class="vote_bar" style="width:{{vote_percent}}%"></div>
-              </div>
-            </div>
-            {{/each}}
-            {{#if results.[0].first_name}}
-            <span class="precincts">Precincts reporting: {{precincts_pct}} percent ({{precincts_reporting}} of {{precincts_total}})</span><br>
-            {{else}}
-            <div class="precincts">{{name}}</div>
-            {{/if}} 
-
-          </div>
-          {{/each}}
-        {{/each}}
-        </div>
-      {{/each}}
-      </div>
-    {{/each}}
-    </script> 
   
   <div class="container">
     <div class="row">
@@ -126,9 +79,10 @@
         <p>See results below.</p>
       </div>
     </div>
-    <div class="col-md-12">
-        <small><i class="fa fa-info-circle"></i> = incumbent</small> | <i class="fa fa-check"></i> = winner
-      </div>
+    <span class="col-md-12">
+    </span>
+
+    <div class="row nav-holder"></div>
   </div>
 
   <div class="container">
@@ -144,44 +98,48 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- Latest compiled and minified JavaScript -->
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="js/handlebars-v1.3.0.js"></script>
+    <script type="text/javascript" src="js/handlebars-v4.0.5.js"></script>
     <script type="text/javascript" src="js/retina.min.js"></script>
+    <script src="js/races.js"></script>
+    <script src="js/nav.js"></script>
     <script type="text/javascript">
 
       var $races = $('.race-holder');
+      var $nav = $('.nav-holder');
       
       $( document ).ready(function() {
         $.getJSON( "data.json", function( results ) {
-          var source = $("#races-template").html();
-          var template = Handlebars.compile(source);
-          var html = template(results);
-          $races.html(html);
+          var races_html = Handlebars.templates.races(results);
+          $races.html(races_html);
+          var nav_html = Handlebars.templates.nav(results)
+          $nav.html(nav_html);
+
         });
 
-        Handlebars.registerHelper("everyOther", function (index, amount, scope) {
-            if ( ++index % amount ) 
-                return scope.inverse(this);
-            else 
-                return scope.fn(this);
-        });
+        // Handlebars.registerHelper("everyOther", function (index, amount, scope) {
+        //     if ( ++index % amount ) 
+        //         return scope.inverse(this);
+        //     else 
+        //         return scope.fn(this);
+        // });
 
-        Handlebars.registerHelper('each_when', function(list, k, v, opts) {
-            console.log(arguments);
-            var i, result = '';
-            for(i = 0; i < list.length; ++i)
-                if(list[i][k] == v)
-                    result = result + opts.fn(list[i]);
-            return result;
-        });
+        // Handlebars.registerHelper('each_when', function(list, k, v, opts) {
+        //     console.log(arguments);
+        //     var i, result = '';
+        //     for(i = 0; i < list.length; ++i)
+        //         if(list[i][k] == v)
+        //             result = result + opts.fn(list[i]);
+        //     return result;
+        // });
 
-        Handlebars.registerHelper('each_when_not', function(list, k, v, opts) {
-            console.log(arguments);
-            var i, result = '';
-            for(i = 0; i < list.length; ++i)
-                if(list[i][k] != v)
-                    result = result + opts.fn(list[i]);
-            return result;
-        });
+        // Handlebars.registerHelper('each_when_not', function(list, k, v, opts) {
+        //     console.log(arguments);
+        //     var i, result = '';
+        //     for(i = 0; i < list.length; ++i)
+        //         if(list[i][k] != v)
+        //             result = result + opts.fn(list[i]);
+        //     return result;
+        // });
 
       });
 

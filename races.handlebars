@@ -1,0 +1,43 @@
+{{#each races}}
+  <div class="office">
+    <div class="col-xs-12 section" id="{{office_name}}">{{office_name}} <a class="return btn btn-primary" href="#President">Return to top</a></div>
+  {{#each seats}}
+    <div class="seat">
+      <div class="col-xs-12 title">{{seat_name}}</div>
+    {{#each parties}}
+      <div class="col-xs-12 col-sm-6 race">
+        <div class="row party">{{party}}</div>
+        {{#if races.[0].precincts_total}}
+        <div class="row table-header">
+          <div class="candidate col-xs-6">Candidate</div>
+          <div class="col-sm-2 col-xs-3 vote_total">Votes</div>
+          <div class="col-sm-2 col-xs-3 vote_pct">Vote %</div>
+          <div class="col-sm-3 hidden-xs"></div>
+        </div>
+        {{else}}
+        <div class="row table-header">{{races.[1].precincts_total}}</div>
+        {{/if}}
+      {{#each races}}
+        {{#each results}}
+        <div class="row result {{#if is_winner}}winner{{/if}}">
+          <div class="candidate col-xs-6">{{#if is_winner}}<i class="fa fa-check"></i>{{/if}}{{name}}{{#if is_incumbent}} <i class="fa fa-info-circle"></i>{{/if}}</div>
+          <div class="col-sm-2 col-xs-3 vote_total">{{vote_total}}</div>
+          <div class="col-sm-2 col-xs-3 vote_pct">{{vote_percent}}%</div>
+          <div class="col-sm-2 hidden-xs vote_bar_container">
+            <div class="vote_bar" style="width:{{vote_percent}}%"></div>
+          </div>
+        </div>
+        {{/each}}
+        {{#if results.[0].first_name}}
+        <span class="precincts">Precincts reporting: {{precincts_pct}} percent ({{precincts_reporting}} of {{precincts_total}})</span><br>
+        {{else}}
+        <div class="precincts">{{name}}</div>
+        {{/if}} 
+
+      </div>
+      {{/each}}
+    {{/each}}
+    </div>
+  {{/each}}
+  </div>
+{{/each}}
