@@ -79,7 +79,7 @@
         m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
         })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-369047-1', 'wbez.org');
+        ga('create', 'UA-369047-40', 'wbez.org');
         ga('send', 'pageview');
       }
     </script>
@@ -134,7 +134,6 @@
     <script type="text/javascript" src="https://s3.amazonaws.com/wbez-assets/scripts/pym.js"></script>
     <script type="text/javascript">
 
-      var pymChild = new pym.Child();
 
       var $races = $('.race-holder');
       var $nav = $('.nav-holder');
@@ -174,6 +173,9 @@
         // });
 
       });
+
+      var pymChild = new pym.Child({ polling: 3000 });
+      setTimeout(function(){ pymChild.sendHeight() }, 3000);
 
     </script>
 

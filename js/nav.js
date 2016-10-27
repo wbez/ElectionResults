@@ -4,7 +4,7 @@ templates['nav'] = template({"1":function(container,depth0,helpers,partials,data
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "    <li><a class=\"\" href=\"#"
-    + alias4(((helper = (helper = helpers.office_name || (depth0 != null ? depth0.office_name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"office_name","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.race_number || (depth0 != null ? depth0.race_number : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"race_number","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.office_name || (depth0 != null ? depth0.office_name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"office_name","hash":{},"data":data}) : helper)))
     + "</a></li>\n";

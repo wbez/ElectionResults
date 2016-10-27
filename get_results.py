@@ -10,8 +10,10 @@ from operator import itemgetter
 import locale
 locale.setlocale(locale.LC_ALL, 'en_US')
 
+# FILE = '/var/www/elections/2016/results/data_20161108.json'
+FILE = 'data_test_20161108.json'
 
-client = AP(config["user"], config["pwd"])
+client = client = AP(config["user"],config["pwd"])
 ill = client.get_state('IL')
 
 office_list = [
@@ -76,9 +78,12 @@ def get_results():
             })
 
         office_name = race.office_name
+        race_number = race.ap_race_number
         seat_name = race.seat_name
         if office_name == "U.S. Senate":
             seat_name = ""
+
+        print office_name,seat_name,race_number
 
         seat_number = race.seat_number
         party = race.party
@@ -91,7 +96,7 @@ def get_results():
             party = 'Green'
 
         if office_name not in data['races']:
-            data['races'][office_name] = {'office_name':office_name, 'seats':OrderedDict()}
+            data['races'][office_name] = {'office_name':office_name, 'race_number':race_number, 'seats':OrderedDict()}
         
         if seat_name not in data['races'][office_name]['seats']:
             data['races'][office_name]['seats'][seat_name] = {'seat_name':seat_name, 'seat_number':seat_number, 'parties':OrderedDict()} 
@@ -168,5 +173,5 @@ data = get_results()
 data = add_parties(data)
 # print data
 
-with open('/var/www/elections/2016/results/data.json', 'w') as outfile:
+with open(FILE, 'w') as outfile:
   json.dump(data, outfile)

@@ -4,7 +4,7 @@ templates['races'] = template({"1":function(container,depth0,helpers,partials,da
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "  <div class=\"office\">\n    <div class=\"col-xs-12 section\" id=\""
-    + alias4(((helper = (helper = helpers.office_name || (depth0 != null ? depth0.office_name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"office_name","hash":{},"data":data}) : helper)))
+    + alias4(((helper = (helper = helpers.race_number || (depth0 != null ? depth0.race_number : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"race_number","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.office_name || (depth0 != null ? depth0.office_name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"office_name","hash":{},"data":data}) : helper)))
     + " <a class=\"return btn btn-primary\" href=\"#top\">Return to top</a></div>\n"
