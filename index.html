@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>WBEZ 2016 Illinois Primary Results</title>
+    <title>WBEZ 2016 Illinois Election Results</title>
 
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" rel="stylesheet">
 
@@ -103,14 +103,11 @@
     </header>
   
   <div class="container" id="top">
-    <div class="row">
-      <h1 class="col-md-12">2016 Illinois Primary Election Results</h1>
+    <div class="row headline">
+      <h1 class="col-md-12">2016 Illinois Election Results</h1>
       <div class="col-md-8">
       </div>
     </div>
-    <span class="col-md-12">
-    </span>
-
     <div class="row nav-holder"></div>
   </div>
 
@@ -121,6 +118,7 @@
     </div>
 
   <!-- end container -->
+
   </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
@@ -139,12 +137,12 @@
       var $nav = $('.nav-holder');
       
       $( document ).ready(function() {
-        $.getJSON( "data.json", function( results ) {
+        $.getJSON( "data_20161108.json", function( results ) {
+          console.log(results)
           var races_html = Handlebars.templates.races(results);
           $races.html(races_html);
           var nav_html = Handlebars.templates.nav(results)
           $nav.html(nav_html);
-
         });
 
         // Handlebars.registerHelper("everyOther", function (index, amount, scope) {
@@ -174,8 +172,29 @@
 
       });
 
+      $(document).on('click','.uncontested',function(){
+        $("[data-uncontested='true']").toggle();
+        $(this).toggleClass('active')
+      });
+
+      $(document).on('click','.interesting',function(){
+        $("[data-interesting='true']").toggle();
+        $(this).toggleClass('active')
+      });
+
+      $('.nav-holder').affix({
+        offset: {
+          top: function () {
+            return (this.top = $('#top').outerHeight(true)/2);
+          }
+        }
+      })
+
+      url = window.location.search.substr(1)
+
+      console.log(url)
+
       var pymChild = new pym.Child({ polling: 3000 });
-      setTimeout(function(){ pymChild.sendHeight() }, 3000);
 
     </script>
 

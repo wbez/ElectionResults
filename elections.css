@@ -6,12 +6,14 @@ body {
 }
 
 h1 {
-	font-family:"CharterITCStd-Bold",'Palatino Bold',serif;
+	/*font-family:"CharterITCStd-Bold",'Palatino Bold',serif;*/
+	font-family: 'Source Sans Pro', sans-serif;
 }
 
 .header {
-	font-family:"CharterITCStd-Bold",'Palatino Bold',serif;
-	border-bottom: 2px solid #EC0101;
+	/*font-family:"CharterITCStd-Bold",'Palatino Bold',serif;*/
+	font-family: 'Source Sans Pro', sans-serif;
+	/*border-bottom: 2px solid #EC0101;*/
 }
 
 .return a{
@@ -23,16 +25,27 @@ h1 {
 	font-size: 24px;
 }
 
+.office {
+	margin-bottom: 1.5em; 
+}
+
 .section {
-	font-size: 36px;
-	font-family:"CharterITCStd-Bold",'Palatino Bold',serif;
+	font-size: 2em;
+	/*font-family:"CharterITCStd-Bold",'Palatino Bold',serif;*/
+	font-family: 'Source Sans Pro', sans-serif;
 	color:#000000;
+	border-bottom: 2px solid #EC0101;
+	padding-left: 0;
 }
 
 .precincts {
 	font-size: 12px;
 	font-style: italic;
 	color: #848687;
+}
+
+.row {
+	margin: 0;
 }
 
 .race-holder {
@@ -60,10 +73,34 @@ h1 {
 
 .title {
 	width:100%;
-	font-family:"CharterITCStd-Bold",'Palatino Bold',serif;
+	/*font-family:"CharterITCStd-Bold",'Palatino Bold',serif;*/
+	font-family: 'Source Sans Pro', sans-serif;
+	font-weight: 700;
 	color: #000000;
-	font-size: 24px;
-	border-bottom: 2px solid #FF0000;
+	font-size: 1em;
+	margin-top:1em;
+	padding-left: 0;
+
+/*	background: #f5f5f5;
+    border: 1px solid #e5e5e5;
+    color: #86898e;*/
+	/*border-bottom: 2px solid #FF0000;*/
+}
+
+.R {
+	color:#EC0101;
+}
+
+.D {
+	color:#0971B2;
+}
+
+.G {
+	color:#009F2D;
+}
+
+.I,.L {
+	color:#F9B816;
 }
 
 .title a {
@@ -72,6 +109,7 @@ h1 {
 
 .title a:hover {
 	color:#c0cbd2;
+	padding-left: 0px;
 }
 
 .fa {
@@ -85,6 +123,11 @@ h1 {
 .footer {
 	background-color: #fff;
 	padding-bottom:2em;
+}
+
+.vote_total {
+	text-align: right;
+	padding-right: 0;
 }
 
 .vote_bar {
@@ -104,6 +147,7 @@ h1 {
 .result {
 	margin-bottom: 5px;
 	border-bottom: 1px solid #C5C5C5;
+	font-size: 16px;
 }
 
 .result.winner {
@@ -162,6 +206,16 @@ header {
   position:absolute;
   top:0px; left:0px;
   width:100%;
+}
+
+.affix {
+	top:0;
+	left:0;
+	background-color: #fff;
+	width: 100%;
+	z-index: 99;
+	padding: 5px 25px;
+	border-bottom: 2px solid #EC0101;
 }
 
 @media (max-width: 768px) {

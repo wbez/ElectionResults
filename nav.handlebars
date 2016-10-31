@@ -3,8 +3,11 @@
   <span class="caret"></span></button>
   <ul class="dropdown-menu">
   {{#each races}}
-    <li><a class="" href="#{{race_number}}">{{office_name}}</a></li>
+    <li><a class="" href="#{{slug}}">{{@key}}</a></li>
   {{/each}}
   </ul>
-  <small> <i class="fa fa-info-circle"></i> = incumbent</small> | <i class="fa fa-check"></i> = winner
+  <button type="button" class="btn btn-primary uncontested">Contested</button>
+  <button type="button" class="btn btn-primary interesting">Interesting</button>
+  <a class="" href="#top"><button type="button" class="btn btn-primary top">Back to Top</button></a>
+  <br><small> * = incumbent</small> | <i class="fa fa-check"></i> = winner
 </div>

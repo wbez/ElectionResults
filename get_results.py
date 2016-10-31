@@ -1,177 +1,106 @@
-
-from elections import AP
+from elex import api
+from collections import OrderedDict
 try:
-    import json
+	import json
 except ImportError:
-    import simplejson as json
-from config import config
-from ordereddict import OrderedDict
-from operator import itemgetter
-import locale
-locale.setlocale(locale.LC_ALL, 'en_US')
+	import simplejson as json
+from slugify import slugify
 
-# FILE = '/var/www/elections/2016/results/data_20161108.json'
-FILE = 'data_test_20161108.json'
+# Setup and call the AP API.
+e = api.Election(electiondate='2016-11-08',resultslevel='state',testresults=True)
+# raw_races = e.get_raw_races()
+# race_objs = e.get_race_objects(raw_races)
 
-client = client = AP(config["user"],config["pwd"])
-ill = client.get_state('IL')
+# Get lists of Python objects for each of the core models.
+# ballot_measures = e.ballot_measures
+# candidate_reporting_units = e.candidate_reporting_units
+# candidates = e.candidates
+races = e.races
+illinois = filter(lambda race: race.statepostal=='IL', races)
+# reporting_units = e.reporting_units
+results = e.results
 
-office_list = [
-    'President',
-    'U.S. Senate',
-    'U.S. House',
-    "State's Attorney",
-    'State House',
-    'State Senate',
-    'Circuit Court Clerk',
-    'County CEO',
-    'County Auditor',
-    'Recorder of Deeds',
-    'Comptroller',
-    'Board Chairman',
-    'County Coroner',
-    'Water Reclaim Unexpired',
-    'Water Reclaim Comm',
-    'Delegates',
-]
+data = {
+	'races': OrderedDict(),
+}
 
-party_list = [
-    'Democrat',
-    'Republican',
-    'Green',
-]
+office_priority = {
+	"President":1,
+	"U.S. Senate":2,
+	"Comptroller":3,
+	"Amendment":4,
+	"U.S. House":5,
+	"State House":6,
+	"State Senate":7,
+	"State's Attorney":8,
+	"Recorder of Deeds":9,
+	"Circuit Court Clerk":10,
+	"County Auditor":11,
+	"County Coroner":12,
+	"Board Chairman":13,
+	"County CEO":14,
+	"Water Commissioner":15
+}
 
-# mayor = ill.filter_races(name='Mayor Chicago')[0]
-# Now the ill variable holds all of the AP result data
+def get_priority(race):
+	if race in office_priority:
+		return office_priority[race];
+	else:
+		return 3
+
+def get_party(party):
+
+	if party == 'GOP':
+		return 'R'
+	elif party in ['Yes','No']:
+		return None
+	else:
+		return party[:1]
+
+def get_races():
+	for race in illinois:
+		"""
+		OrderedDict([('id', u'16412'), ('raceid', u'16412'), ('racetype', u'Primary'), ('racetypeid', u'D'), ('description', None), ('electiondate', '2016-03-15'), ('initialization_data', True), ('lastupdated', u'2016-03-18T12:29:42Z'), ('national', True), ('officeid', u'Z'), ('officename', u'State Senate'), ('party', u'Dem'), ('seatname', u'District 46'), ('seatnum', u'46'), ('statename', None), ('statepostal', u'IL'), ('test', False), ('uncontested', True)])
+		"""
+		# races[race.id] = race.serialize()
+
+		if race.officename not in data['races']:
+			data['races'][race.officename] = OrderedDict()
+			data['races'][race.officename]['slug'] = slugify(race.officename)
+			data['races'][race.officename]['priority'] = get_priority(race.officename)
+
+		rs = race.serialize()
+		data['races'][race.officename][race.id] = rs
+		results_list = []
+		results_obj = filter(lambda result: result.raceid == race.id and result.statepostal=='IL', results)
+		for result in results_obj:
+			results_list.append({
+				'id': result.id,
+				'unique_id': result.unique_id,
+				'last_name': result.last,
+				'first_name': result.first,
+				'ballotorder': result.ballotorder,
+				'party': get_party(result.party),
+				'vote_total': "{:,}".format(result.votecount),
+				'is_incumbent': result.incumbent,
+				'vote_percent': "{:.0%}".format(result.votepct).strip('%'),
+				'is_winner': result.winner,
+				'uncontested': result.uncontested
+		})
+
+		data['races'][race.officename][race.id]['precinctsreporting'] = "{:,}".format(results_obj[0].precinctsreporting)
+		data['races'][race.officename][race.id]['precinctsreportingpct'] = "{:.0%}".format(results_obj[0].precinctsreportingpct)
+		data['races'][race.officename][race.id]['precinctstotal'] = "{:,}".format(results_obj[0].precinctstotal)
+		data['races'][race.officename][race.id]['results'] = results_list
+
+	data['races'] = OrderedDict(sorted(data['races'].items(), key=lambda x: x[1]['priority']))
 
 def get_results():
-    # Set up the main data dict and set the percent of precincts reporting
-    data = {
-        'races': OrderedDict(),
-    }
+	for result in results: 
+		print result.party
 
-    # Loop through the statewide races results, and append them
-    # in a format we like into the data dict's race list.
-    for race in ill.races:
-        results = []
-        for result in race.state.results:
-            is_winner = result.candidate.is_winner
+get_races()
+# get_results()
 
-            if result.vote_total_percent != None:
-                vote_percent = round(float(result.vote_total_percent),1)
-            else:
-                vote_percent = round(float(0),1)
-
-            if race.state.precincts_total != 0:
-                precincts_pct = round(100*(race.state.precincts_reporting/float(race.state.precincts_total)),1)
-            else:
-                precincts_pct = race.state.precincts_total
-            
-            results.append({
-                'name': result.candidate.name,
-                'last_name': result.candidate.last_name,
-                'first_name': result.candidate.first_name,
-                'vote_total': locale.format("%d", result.vote_total, grouping=True),
-                'is_incumbent': result.candidate.is_incumbent,
-                'vote_percent': vote_percent,
-                'is_winner': result.candidate.is_winner,
-            })
-
-        office_name = race.office_name
-        race_number = race.ap_race_number
-        seat_name = race.seat_name
-        if office_name == "U.S. Senate":
-            seat_name = ""
-
-        print office_name,seat_name,race_number
-
-        seat_number = race.seat_number
-        party = race.party
-
-        if race.party == 'Dem':
-            party = 'Democrat'
-        elif party == 'GOP':
-            party = 'Republican'
-        elif party == 'Grn':
-            party = 'Green'
-
-        if office_name not in data['races']:
-            data['races'][office_name] = {'office_name':office_name, 'race_number':race_number, 'seats':OrderedDict()}
-        
-        if seat_name not in data['races'][office_name]['seats']:
-            data['races'][office_name]['seats'][seat_name] = {'seat_name':seat_name, 'seat_number':seat_number, 'parties':OrderedDict()} 
-
-        if party not in data['races'][office_name]['seats'][seat_name]['parties']:
-            data['races'][office_name]['seats'][seat_name]['parties'][party] = {'party': party, 'races':[]}
-
-
-        data['races'][office_name]['seats'][seat_name]['parties'][party]['races'].append(OrderedDict({
-            'name': race.name,
-            'race_number': race.ap_race_number,
-            'office_name': race.office_name,
-            'office_id': race.office_id,
-            'precincts_total': race.state.precincts_total,
-            'precincts_reporting': race.state.precincts_reporting,
-            'precincts_pct': precincts_pct,
-            'race_type_name':race.race_type_name,
-            'seat_name': race.seat_name,
-            'seat_number': race.seat_number,
-            'uncontested':race.uncontested,
-            'is_referendum':race.is_referendum,
-            'results': results
-        }))
-
-    return data
-
-def add_parties(data):
-    parties = ['Democrat','Republican']
-
-    for office_name in data['races']:
-        s = data['races'][office_name]['seats']
-        if office_name in ["State's Attorney","Circuit Court Clerk","Recorder of Deeds","County Coroner"]:
-            data['races'][office_name]['seats'] = OrderedDict(sorted(s.items(),key=lambda t: t[0]))
-        else:
-            data['races'][office_name]['seats'] = OrderedDict(sorted(s.items(),key=lambda t: int(t[1]['seat_number'])))
-        
-        for seat_name in data['races'][office_name]['seats']:
-            for party_name in parties:
-                if party_name not in  data['races'][office_name]['seats'][seat_name]['parties']:
-                    data['races'][office_name]['seats'][seat_name]['parties'][party_name] = {'party': party_name, 'races':[]}
-                    data['races'][office_name]['seats'][seat_name]['parties'][party_name]['races'].append(OrderedDict({
-                        'name': 'No primary',
-                        'race_number':None,
-                        'office_name':None,
-                        'office_id':None,
-                        'precincts_total': None,
-                        'precincts_reporting': None,
-                        'precincts_pct': None,
-                        'race_type_name':None,
-                        'seat_name': None,
-                        'uncontested':True,
-                        'is_referendum':False,
-                        'results': OrderedDict()
-                    }))
-                for race in data['races'][office_name]['seats'][seat_name]['parties'][party_name]['races']:
-                    r = race['results']
-                    race['results'] = sorted(r, key=itemgetter('vote_percent'), reverse=True)
-
-            p = data['races'][office_name]['seats'][seat_name]['parties']
-            data['races'][office_name]['seats'][seat_name]['parties'] = OrderedDict(sorted(p.items(),key=lambda t: t[0]))
-            
-            if 'Green' in data['races'][office_name]['seats'][seat_name]['parties']:
-                data['races'][office_name]['seats'][seat_name]['parties'] = OrderedDict((key, data['races'][office_name]['seats'][seat_name]['parties'][key]) for key in party_list)
-
-    # data['races'] = OrderedDict(sorted(data['races'].items(),key=lambda t: t[0]))
-
-    data['races'] = OrderedDict((key, data['races'][key]) for key in office_list)
-        
-    return data
-
-# print json.dumps(data)
-# Then dump the data dict out as JSON
-data = get_results()
-data = add_parties(data)
-# print data
-
-with open(FILE, 'w') as outfile:
-  json.dump(data, outfile)
+with open('data_20161108.json', 'w') as outfile:
+	json.dump(data, outfile, indent=4, separators=(',', ': '))
