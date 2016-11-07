@@ -3,7 +3,9 @@
 templates['races'] = template({"1":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "  <div class=\"office\">\n    <div class=\"col-xs-12 section\" id=\""
+  return "  <div class=\"office\" data-interesting=\""
+    + alias4(((helper = (helper = helpers.interesting || (depth0 != null ? depth0.interesting : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"interesting","hash":{},"data":data}) : helper)))
+    + "\">\n    <div class=\"col-xs-12 section\" id=\""
     + alias4(((helper = (helper = helpers.slug || (depth0 != null ? depth0.slug : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"slug","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.key || (data && data.key)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"key","hash":{},"data":data}) : helper)))
@@ -19,28 +21,42 @@ templates['races'] = template({"1":function(container,depth0,helpers,partials,da
 
   return "      <div class=\"seat\" data-uncontested=\""
     + alias4(((helper = (helper = helpers.uncontested || (depth0 != null ? depth0.uncontested : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"uncontested","hash":{},"data":data}) : helper)))
-    + "\">\n        <div class=\"col-xs-12 title\">"
-    + alias4(((helper = (helper = helpers.seatname || (depth0 != null ? depth0.seatname : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"seatname","hash":{},"data":data}) : helper)))
-    + "</div>  \n"
-    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.results : depth0),{"name":"each","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
-    + ((stack1 = helpers["if"].call(alias1,((stack1 = ((stack1 = (depth0 != null ? depth0.results : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.first_name : stack1),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.program(13, data, 0),"data":data})) != null ? stack1 : "")
+    + "\" data-interesting=\""
+    + alias4(((helper = (helper = helpers.interesting || (depth0 != null ? depth0.interesting : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"interesting","hash":{},"data":data}) : helper)))
+    + "\">\n"
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.seatname : depth0),{"name":"if","hash":{},"fn":container.program(4, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.interesting : depth0),{"name":"if","hash":{},"fn":container.program(6, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers.each.call(alias1,(depth0 != null ? depth0.results : depth0),{"name":"each","hash":{},"fn":container.program(8, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,((stack1 = ((stack1 = (depth0 != null ? depth0.results : depth0)) != null ? stack1["0"] : stack1)) != null ? stack1.first_name : stack1),{"name":"if","hash":{},"fn":container.program(15, data, 0),"inverse":container.program(17, data, 0),"data":data})) != null ? stack1 : "")
     + "    </div>\n";
 },"4":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "        <div class=\"col-xs-12 title\">"
+    + container.escapeExpression(((helper = (helper = helpers.seatname || (depth0 != null ? depth0.seatname : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"seatname","hash":{},"data":data}) : helper)))
+    + "</div>\n";
+},"6":function(container,depth0,helpers,partials,data) {
+    var helper;
+
+  return "        <div class=\"col-xs-12 description\">"
+    + container.escapeExpression(((helper = (helper = helpers.description || (depth0 != null ? depth0.description : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : {},{"name":"description","hash":{},"data":data}) : helper)))
+    + "</div>\n";
+},"8":function(container,depth0,helpers,partials,data) {
     var stack1, helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <div class=\"row result "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.is_winner : depth0),{"name":"if","hash":{},"fn":container.program(5, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.is_winner : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "\">\n          <div class=\"candidate col-xs-6 col-sm-4\">"
     + alias4(((helper = (helper = helpers.first_name || (depth0 != null ? depth0.first_name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"first_name","hash":{},"data":data}) : helper)))
     + " "
     + alias4(((helper = (helper = helpers.last_name || (depth0 != null ? depth0.last_name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"last_name","hash":{},"data":data}) : helper)))
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.is_incumbent : depth0),{"name":"if","hash":{},"fn":container.program(7, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.is_incumbent : depth0),{"name":"if","hash":{},"fn":container.program(11, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + " <span class=\""
     + alias4(((helper = (helper = helpers.party || (depth0 != null ? depth0.party : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"party","hash":{},"data":data}) : helper)))
     + "\">"
     + alias4(((helper = (helper = helpers.party || (depth0 != null ? depth0.party : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"party","hash":{},"data":data}) : helper)))
     + "</span> "
-    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.is_winner : depth0),{"name":"if","hash":{},"fn":container.program(9, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
+    + ((stack1 = helpers["if"].call(alias1,(depth0 != null ? depth0.is_winner : depth0),{"name":"if","hash":{},"fn":container.program(13, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "</div>\n          <div class=\"col-sm-2 col-xs-3 vote_total\">"
     + alias4(((helper = (helper = helpers.vote_total || (depth0 != null ? depth0.vote_total : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"vote_total","hash":{},"data":data}) : helper)))
     + "</div>\n          <div class=\"col-sm-2 col-xs-3 vote_pct\">"
@@ -48,13 +64,13 @@ templates['races'] = template({"1":function(container,depth0,helpers,partials,da
     + "%</div>\n          <div class=\"col-sm-4 hidden-xs vote_bar_container\">\n            <div class=\"vote_bar\" style=\"width:"
     + alias4(((helper = (helper = helpers.vote_percent || (depth0 != null ? depth0.vote_percent : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"vote_percent","hash":{},"data":data}) : helper)))
     + "%\"></div>\n          </div>\n        </div>\n";
-},"5":function(container,depth0,helpers,partials,data) {
-    return "winner";
-},"7":function(container,depth0,helpers,partials,data) {
-    return "*";
 },"9":function(container,depth0,helpers,partials,data) {
-    return "<i class=\"fa fa-check\"></i>";
+    return "winner";
 },"11":function(container,depth0,helpers,partials,data) {
+    return "*";
+},"13":function(container,depth0,helpers,partials,data) {
+    return "<i class=\"fa fa-check\"></i>";
+},"15":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
   return "        <span class=\"precincts\">Precincts reporting: "
@@ -64,7 +80,7 @@ templates['races'] = template({"1":function(container,depth0,helpers,partials,da
     + " of "
     + alias4(((helper = (helper = helpers.precinctstotal || (depth0 != null ? depth0.precinctstotal : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"precinctstotal","hash":{},"data":data}) : helper)))
     + ")</span><br>\n";
-},"13":function(container,depth0,helpers,partials,data) {
+},"17":function(container,depth0,helpers,partials,data) {
     var helper;
 
   return "        <div class=\"precincts\">"

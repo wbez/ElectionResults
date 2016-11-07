@@ -127,6 +127,7 @@
     <script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
     <script type="text/javascript" src="js/handlebars-v4.0.5.js"></script>
     <script type="text/javascript" src="js/retina.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
     <script src="js/races.js"></script>
     <script src="js/nav.js"></script>
     <script type="text/javascript" src="https://s3.amazonaws.com/wbez-assets/scripts/pym.js"></script>
@@ -135,11 +136,22 @@
 
       var $races = $('.race-holder');
       var $nav = $('.nav-holder');
+
+      var url = window.location.search.substring(1);
+      console.log(url)
       
       $( document ).ready(function() {
         $.getJSON( "data_20161108.json", function( results ) {
 
-          var races_html = Handlebars.templates.races(results);
+          var race = _.filter(results, function(a){ 
+            _.each(a, function(b) {
+                console.log(b)
+                _.each(b, function(comment){
+                    console.log(comment.body);
+                });
+            });
+          });
+          var races_html = Handlebars.templates.races(race);
           $races.html(races_html);
           var nav_html = Handlebars.templates.nav(results)
           $nav.html(nav_html);

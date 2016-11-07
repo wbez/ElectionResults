@@ -1,10 +1,15 @@
 {{#each races}}
-  <div class="office">
+  <div class="office" data-interesting="{{interesting}}">
     <div class="col-xs-12 section" id="{{slug}}">{{@key}}</div>
     {{#each this}}
     {{#if this.results}}
-      <div class="seat" data-uncontested="{{uncontested}}">
-        <div class="col-xs-12 title">{{seatname}}</div>  
+      <div class="seat" data-uncontested="{{uncontested}}" data-interesting="{{interesting}}">
+        {{#if seatname}}
+        <div class="col-xs-12 title">{{seatname}}</div>
+        {{/if}}
+        {{#if interesting}}
+        <div class="col-xs-12 description">{{description}}</div>
+        {{/if}}
         {{#each results}}
         <div class="row result {{#if is_winner}}winner{{/if}}">
           <div class="candidate col-xs-6 col-sm-4">{{first_name}} {{last_name}}{{#if is_incumbent}}*{{/if}} <span class="{{party}}">{{party}}</span> {{#if is_winner}}<i class="fa fa-check"></i>{{/if}}</div>

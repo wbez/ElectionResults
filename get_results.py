@@ -42,6 +42,10 @@ office_priority = {
 	"Water Commissioner":15
 }
 
+interesting_races = {
+	"16413":"Incumbent Sen. Mark Kirk (R) is attempting to hold off Democratic challenger Tammy Duckworth. The seat is rated as one of the most likely pickups for Democrats as they try to regain control of the Senate."
+}
+
 def get_priority(race):
 	if race in office_priority:
 		return office_priority[race];
@@ -64,15 +68,29 @@ def get_races():
 		"""
 		# races[race.id] = race.serialize()
 
+		interesting = False
+		description = ''
+
 		if race.officename not in data['races']:
 			data['races'][race.officename] = OrderedDict()
 			data['races'][race.officename]['slug'] = slugify(race.officename)
 			data['races'][race.officename]['priority'] = get_priority(race.officename)
 
+		if 'interesting' not in data['races'][race.officename]:
+			data['races'][race.officename]['interesting'] = False;
+
+		if race.raceid in interesting_races:
+			interesting = True
+			description = interesting_races[race.raceid]
+			data['races'][race.officename]['interesting'] = True
+
 		rs = race.serialize()
 		data['races'][race.officename][race.id] = rs
+		data['races'][race.officename][race.id]['interesting'] = interesting
+		data['races'][race.officename][race.id]['description'] = description
 		results_list = []
 		results_obj = filter(lambda result: result.raceid == race.id and result.statepostal=='IL', results)
+		
 		for result in results_obj:
 			results_list.append({
 				'id': result.id,
