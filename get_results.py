@@ -7,8 +7,8 @@ except ImportError:
 from slugify import slugify
 
 
-# FILE = '/var/www/elections/2016/results/illinois_20161108.json'
-FILE = 'illinois_20161108.json'
+FILE = '/var/www/elections/test/illinois_20161108.json'
+# FILE = 'illinois_20161108.json'
 
 # Setup and call the AP API.
 e = api.Election(electiondate='2016-11-08',resultslevel='state',testresults=False)
@@ -124,5 +124,5 @@ def get_results():
 get_races()
 # get_results()
 
-with open('illinois_20161108.json', 'w') as outfile:
+with open(FILE, 'w') as outfile:
 	json.dump(data, outfile, indent=4, separators=(',', ': '))
