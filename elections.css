@@ -5,6 +5,10 @@ body {
 	color:#252525;
 }
 
+body.single {
+	padding-top: 0;
+}
+
 h1 {
 	/*font-family:"CharterITCStd-Bold",'Palatino Bold',serif;*/
 	font-family: 'Source Sans Pro', sans-serif;

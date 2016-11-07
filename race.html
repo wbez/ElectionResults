@@ -84,8 +84,8 @@
       }
     </script>
   </head>
-  <body>
-    <header class="wbez-header">
+  <body class="single">
+<!--     <header class="wbez-header">
       <a href="http://wbez.org">
         <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100" height="25" viewBox="0 0 673.5 181.6" enable-background="new 0 0 673.5 181.6" xml:space="preserve">
         <g>
@@ -100,16 +100,16 @@
         </g>
         </svg>
       </a>
-    </header>
+    </header> -->
   
-  <div class="container" id="top">
+<!--   <div class="container" id="top">
     <div class="row headline">
       <h1 class="col-md-12">2016 Illinois Election Results</h1>
       <div class="col-md-8">
       </div>
     </div>
     <div class="row nav-holder"></div>
-  </div>
+  </div> -->
 
   <div class="container">
     <div class="row race-holder">
@@ -128,7 +128,7 @@
     <script type="text/javascript" src="js/handlebars-v4.0.5.js"></script>
     <script type="text/javascript" src="js/retina.min.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
-    <script src="js/races.js"></script>
+    <script src="js/single_race.js"></script>
     <script src="js/nav.js"></script>
     <script type="text/javascript" src="https://s3.amazonaws.com/wbez-assets/scripts/pym.js"></script>
     <script type="text/javascript">
@@ -138,70 +138,21 @@
       var $nav = $('.nav-holder');
 
       var url = window.location.search.substring(1);
-      console.log(url)
       
       $( document ).ready(function() {
-        $.getJSON( "data_20161108.json", function( results ) {
+        $.getJSON( "http://output.wbez.org/illinois_races_20161108.json", function( results ) {
 
-          var race = _.filter(results, function(a){ 
-            _.each(a, function(b) {
-                console.log(b)
-                _.each(b, function(comment){
-                    console.log(comment.body);
-                });
-            });
-          });
-          var races_html = Handlebars.templates.races(race);
+          var race = _.where(results, {"id": url});
+
+          console.log(race)
+          var races_html = Handlebars.templates.single_race(race);
           $races.html(races_html);
           var nav_html = Handlebars.templates.nav(results)
           $nav.html(nav_html);
         });
 
-        // Handlebars.registerHelper("everyOther", function (index, amount, scope) {
-        //     if ( ++index % amount ) 
-        //         return scope.inverse(this);
-        //     else 
-        //         return scope.fn(this);
-        // });
-
-        // Handlebars.registerHelper('each_when', function(list, k, v, opts) {
-        //     console.log(arguments);
-        //     var i, result = '';
-        //     for(i = 0; i < list.length; ++i)
-        //         if(list[i][k] == v)
-        //             result = result + opts.fn(list[i]);
-        //     return result;
-        // });
-
-        // Handlebars.registerHelper('each_when_not', function(list, k, v, opts) {
-        //     console.log(arguments);
-        //     var i, result = '';
-        //     for(i = 0; i < list.length; ++i)
-        //         if(list[i][k] != v)
-        //             result = result + opts.fn(list[i]);
-        //     return result;
-        // });
 
       });
-
-      $(document).on('click','.uncontested',function(){
-        $("[data-uncontested='true']").toggle();
-        $(this).toggleClass('active')
-      });
-
-      $(document).on('click','.interesting',function(){
-        $("div.seat[data-interesting!='true']").toggle();
-        $("div.office[data-interesting!='true']").toggle();
-        $(this).toggleClass('active')
-      });
-
-      $('.nav-holder').affix({
-        offset: {
-          top: function () {
-            return (this.top = $('#top').outerHeight(true)/2);
-          }
-        }
-      })
 
       url = window.location.search.substr(1)
 

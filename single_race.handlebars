@@ -1,0 +1,30 @@
+{{#each this}}
+  <div class="office" data-interesting="{{interesting}}">
+    <div class="col-xs-12 section" id="{{slug}}">{{officename}}</div>
+    {{#if this.results}}
+      <div class="seat" data-uncontested="{{uncontested}}" data-interesting="{{interesting}}">
+        {{#if seatname}}
+        <div class="col-xs-12 title">{{seatname}}</div>
+        {{/if}}
+        {{#if interesting}}
+        <div class="col-xs-12 description">{{description}}</div>
+        {{/if}}
+        {{#each results}}
+        <div class="row result {{#if is_winner}}winner{{/if}}">
+          <div class="candidate col-xs-6 col-sm-4">{{first_name}} {{last_name}}{{#if is_incumbent}}*{{/if}} <span class="{{party}}">{{party}}</span> {{#if is_winner}}<i class="fa fa-check"></i>{{/if}}</div>
+          <div class="col-sm-2 col-xs-3 vote_total">{{vote_total}}</div>
+          <div class="col-sm-2 col-xs-3 vote_pct">{{vote_percent}}%</div>
+          <div class="col-sm-4 hidden-xs vote_bar_container">
+            <div class="vote_bar" style="width:{{vote_percent}}%"></div>
+          </div>
+        </div>
+        {{/each}}
+        {{#if results.[0].first_name}}
+        <span class="precincts">Precincts reporting: {{precinctsreportingpct}} percent ({{precinctsreporting}} of {{precinctstotal}})</span><br>
+        {{else}}
+        <div class="precincts">{{name}}</div>
+        {{/if}} 
+    </div>
+  {{/if}}
+  </div>
+{{/each}}

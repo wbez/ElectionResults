@@ -7,8 +7,10 @@ except ImportError:
 from slugify import slugify
 
 
-FILE = '/srv/election-results/output/illinois_20161108.json'
-# FILE = 'illinois_20161108.json'
+RESULTS = '/srv/election-results/output/illinois_20161108.json'
+RESULTS = 'illinois_20161108.json'
+SINGLE_RACES = '/srv/election-results/output/illinois_races_20161108.json'
+SINGLE_RACES = 'illinois_races_20161108.json'
 
 # Setup and call the AP API.
 e = api.Election(electiondate='2016-11-08',resultslevel='state',testresults=False)
@@ -20,6 +22,7 @@ e = api.Election(electiondate='2016-11-08',resultslevel='state',testresults=Fals
 # candidate_reporting_units = e.candidate_reporting_units
 # candidates = e.candidates
 races = e.races
+races_json = []
 illinois = filter(lambda race: race.statepostal=='IL', races)
 # reporting_units = e.reporting_units
 results = e.results
@@ -47,7 +50,12 @@ office_priority = {
 }
 
 interesting_races = {
-	"16413":"Incumbent Sen. Mark Kirk (R) is attempting to hold off Democratic challenger Tammy Duckworth. The seat is rated as one of the most likely pickups for Democrats as they try to regain control of the Senate."
+	"16413":"Incumbent Sen. Mark Kirk (R) is attempting to hold off Democratic challenger Tammy Duckworth. The seat is rated as one of the most likely pickups for Democrats as they try to regain control of the Senate.",
+	"16431":"Illinois voters are being asked to change the state constitution so money devoted to improving roads and bridges would have to go toward those projects.",
+	"15268":"Judy Baar Topinka died shortly after winning reelection to Comptroller in 2014. Incumbent Leslie Munger was appointed by Gov. Bruce Rauner to take over the position, while lawmakers passed a measure saying the appointment would only last two years before having a special election.",
+	"15997":"Democrat Raja Krishnamoorthi and Republican Pete DiCianni are squaring off in this open west suburban congressional seat that's being vacated by Tammy Duckworth, who's running for Illinois' U.S. Senate seat.",
+	"15999":"Republican incumbent U.S. Rep. Bob Dold is facing off against former Congressman Brad Schneider for the third time in this perpetually competitive district.",
+	"14901":"Chris Pfannkuche faces Kim Foxx, who defeated Democratic incumbent Anita Alvarez in a highly contested primary."
 }
 
 def get_priority(race):
@@ -88,7 +96,11 @@ def get_races():
 			description = interesting_races[race.raceid]
 			data['races'][race.officename]['interesting'] = True
 
+		if race.raceid == "16431":
+			race.seatname = "Transportation Lockbox"
+
 		rs = race.serialize()
+		races_json.append(rs)
 		data['races'][race.officename][race.id] = rs
 		data['races'][race.officename][race.id]['interesting'] = interesting
 		data['races'][race.officename][race.id]['description'] = description
@@ -124,5 +136,8 @@ def get_results():
 get_races()
 # get_results()
 
-with open(FILE, 'w') as outfile:
+with open(RESULTS, 'w') as outfile:
 	json.dump(data, outfile, indent=4, separators=(',', ': '))
+
+with open(SINGLE_RACES, 'w') as outfile:
+	json.dump(races_json, outfile, indent=4, separators=(',', ': '))
