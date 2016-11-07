@@ -137,7 +137,7 @@
       var $nav = $('.nav-holder');
       
       $( document ).ready(function() {
-        $.getJSON( "http://output.wbez.org/illinois_20161108.json", function( results ) {
+        $.getJSON( "illinois_20161108.json", function( results ) {
 
           var races_html = Handlebars.templates.races(results);
           $races.html(races_html);

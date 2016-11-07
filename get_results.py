@@ -13,7 +13,7 @@ SINGLE_RACES = '/srv/election-results/output/illinois_races_20161108.json'
 # SINGLE_RACES = 'illinois_races_20161108.json'
 
 # Setup and call the AP API.
-e = api.Election(electiondate='2016-11-08',resultslevel='state',testresults=False)
+e = api.Election(electiondate='2016-11-08',resultslevel='state',testresults=True)
 # raw_races = e.get_raw_races()
 # race_objs = e.get_race_objects(raw_races)
 
