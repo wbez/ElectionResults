@@ -1,4 +1,4 @@
-data*.json
+*.json
 *.pyc
 .DS_Store
 _fonts
