@@ -103,16 +103,16 @@ def get_races():
 				'first_name': result.first,
 				'ballotorder': result.ballotorder,
 				'party': get_party(result.party),
-				'vote_total': "{:,}".format(result.votecount),
+				'vote_total': "{0:,}".format(result.votecount),
 				'is_incumbent': result.incumbent,
-				'vote_percent': "{:.0%}".format(result.votepct).strip('%'),
+				'vote_percent': "{0:.0%}".format(result.votepct).strip('%'),
 				'is_winner': result.winner,
 				'uncontested': result.uncontested
 		})
 
-		data['races'][race.officename][race.id]['precinctsreporting'] = "{:,}".format(results_obj[0].precinctsreporting)
-		data['races'][race.officename][race.id]['precinctsreportingpct'] = "{:.0%}".format(results_obj[0].precinctsreportingpct)
-		data['races'][race.officename][race.id]['precinctstotal'] = "{:,}".format(results_obj[0].precinctstotal)
+		data['races'][race.officename][race.id]['precinctsreporting'] = "{0:,}".format(results_obj[0].precinctsreporting)
+		data['races'][race.officename][race.id]['precinctsreportingpct'] = "{0:.0%}".format(results_obj[0].precinctsreportingpct)
+		data['races'][race.officename][race.id]['precinctstotal'] = "{0:,}".format(results_obj[0].precinctstotal)
 		data['races'][race.officename][race.id]['results'] = results_list
 
 	data['races'] = OrderedDict(sorted(data['races'].items(), key=lambda x: x[1]['priority']))
