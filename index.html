@@ -132,17 +132,19 @@
     <script type="text/javascript" src="https://s3.amazonaws.com/wbez-assets/scripts/pym.js"></script>
     <script type="text/javascript">
 
-
+      var pymChild = new pym.Child();
       var $races = $('.race-holder');
       var $nav = $('.nav-holder');
       
       $( document ).ready(function() {
-        $.getJSON( "http://output.wbez.org/illinois_20161108.json", function( results ) {
+        $.getJSON( "//output.wbez.org/illinois_20161108.json", function( results ) {
 
           var races_html = Handlebars.templates.races(results);
           $races.html(races_html);
           var nav_html = Handlebars.templates.nav(results)
           $nav.html(nav_html);
+
+          pymChild.sendHeight()
         });
 
         // Handlebars.registerHelper("everyOther", function (index, amount, scope) {
@@ -177,11 +179,11 @@
         $(this).toggleClass('active')
       });
 
-      $(document).on('click','.interesting',function(){
-        $("div.seat[data-interesting!='true']").toggle();
-        $("div.office[data-interesting!='true']").toggle();
-        $(this).toggleClass('active')
-      });
+      // $(document).on('click','.interesting',function(){
+      //   $("div.seat[data-interesting!='true']").toggle();
+      //   $("div.office[data-interesting!='true']").toggle();
+      //   $(this).toggleClass('active')
+      // });
 
       $('.nav-holder').affix({
         offset: {
@@ -190,12 +192,6 @@
           }
         }
       })
-
-      url = window.location.search.substr(1)
-
-      console.log(url)
-
-      var pymChild = new pym.Child({ polling: 3000 });
 
     </script>
 

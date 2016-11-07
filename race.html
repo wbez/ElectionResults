@@ -140,7 +140,7 @@
       var url = window.location.search.substring(1);
       
       $( document ).ready(function() {
-        $.getJSON( "http://output.wbez.org/illinois_races_20161108.json", function( results ) {
+        $.getJSON( "//output.wbez.org/illinois_races_20161108.json", function( results ) {
 
           var race = _.where(results, {"id": url});
 
