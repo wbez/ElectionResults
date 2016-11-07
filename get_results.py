@@ -8,9 +8,9 @@ from slugify import slugify
 
 
 RESULTS = '/srv/election-results/output/illinois_20161108.json'
-RESULTS = 'illinois_20161108.json'
+# RESULTS = 'illinois_20161108.json'
 SINGLE_RACES = '/srv/election-results/output/illinois_races_20161108.json'
-SINGLE_RACES = 'illinois_races_20161108.json'
+# SINGLE_RACES = 'illinois_races_20161108.json'
 
 # Setup and call the AP API.
 e = api.Election(electiondate='2016-11-08',resultslevel='state',testresults=False)
@@ -55,7 +55,7 @@ interesting_races = {
 	"15268":"Judy Baar Topinka died shortly after winning reelection to Comptroller in 2014. Incumbent Leslie Munger was appointed by Gov. Bruce Rauner to take over the position, while lawmakers passed a measure saying the appointment would only last two years before having a special election.",
 	"15997":"Democrat Raja Krishnamoorthi and Republican Pete DiCianni are squaring off in this open west suburban congressional seat that's being vacated by Tammy Duckworth, who's running for Illinois' U.S. Senate seat.",
 	"15999":"Republican incumbent U.S. Rep. Bob Dold is facing off against former Congressman Brad Schneider for the third time in this perpetually competitive district.",
-	"14901":"Chris Pfannkuche faces Kim Foxx, who defeated Democratic incumbent Anita Alvarez in a highly contested primary."
+	"14901":"Chris Pfannkuche faces Kim Foxx, who defeated Democratic incumbent Anita Alvarez in a highly contested primary.",
 }
 
 def get_priority(race):
