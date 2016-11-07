@@ -7,7 +7,7 @@ except ImportError:
 from slugify import slugify
 
 
-FILE = '/var/www/elections/test/illinois_20161108.json'
+FILE = '/srv/election-results/illinois_20161108.json'
 # FILE = 'illinois_20161108.json'
 
 # Setup and call the AP API.
