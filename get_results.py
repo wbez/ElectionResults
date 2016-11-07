@@ -120,5 +120,5 @@ def get_results():
 get_races()
 # get_results()
 
-with open('data_20161108.json', 'w') as outfile:
+with open('illinois_20161108.json', 'w') as outfile:
 	json.dump(data, outfile, indent=4, separators=(',', ': '))
