@@ -1,7 +1,7 @@
 <div class="dropdown">
   <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Pick Office
   <span class="caret"></span></button>
-  <ul class="dropdown-menu">
+  <ul class="dropdown-menu" onchange="pymMove(this)">
   {{#each races}}
     <li><a class="" href="#{{slug}}">{{@key}}</a></li>
   {{/each}}

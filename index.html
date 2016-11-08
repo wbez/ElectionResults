@@ -177,6 +177,7 @@
       $(document).on('click','.uncontested',function(){
         $("[data-uncontested='true']").toggle();
         $(this).toggleClass('active')
+        pymChild.sendHeight()
       });
 
       // $(document).on('click','.interesting',function(){
@@ -192,6 +193,11 @@
           }
         }
       })
+
+      var pymMove = function(sel){
+        var value = sel.value; 
+        pymChild.scrollParentToChildEl(sel.value);
+      }
 
     </script>
 

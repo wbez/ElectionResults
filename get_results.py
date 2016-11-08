@@ -5,7 +5,8 @@ try:
 except ImportError:
 	import simplejson as json
 from slugify import slugify
-
+import os
+import tinys3
 
 RESULTS = '/srv/election-results/output/illinois_20161108.json'
 # RESULTS = 'illinois_20161108.json'

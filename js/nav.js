@@ -11,7 +11,7 @@ templates['nav'] = template({"1":function(container,depth0,helpers,partials,data
 },"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var stack1;
 
-  return "<div class=\"dropdown\">\n  <button class=\"btn btn-primary dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">Pick Office\n  <span class=\"caret\"></span></button>\n  <ul class=\"dropdown-menu\">\n"
+  return "<div class=\"dropdown\">\n  <button class=\"btn btn-primary dropdown-toggle\" type=\"button\" data-toggle=\"dropdown\">Pick Office\n  <span class=\"caret\"></span></button>\n  <ul class=\"dropdown-menu\" onchange=\"pymMove(this)\">\n"
     + ((stack1 = helpers.each.call(depth0 != null ? depth0 : {},(depth0 != null ? depth0.races : depth0),{"name":"each","hash":{},"fn":container.program(1, data, 0),"inverse":container.noop,"data":data})) != null ? stack1 : "")
     + "  </ul>\n  <button type=\"button\" class=\"btn btn-primary uncontested\">Contested</button>\n  <!-- <button type=\"button\" class=\"btn btn-primary interesting\">Highlighted</button> -->\n  <a class=\"\" href=\"#top\"><button type=\"button\" class=\"btn btn-primary top\">Back to Top</button></a>\n  <br><small> * = incumbent</small> | <i class=\"fa fa-check\"></i> = winner\n</div>";
 },"useData":true});
