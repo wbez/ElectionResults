@@ -129,7 +129,7 @@
     <script type="text/javascript" src="js/retina.min.js"></script>
     <script src="js/races.js"></script>
     <script src="js/nav.js"></script>
-    <script type="text/javascript" src="https://s3.amazonaws.com/wbez-assets/scripts/pym.js"></script>
+    <script type="text/javascript" src="https://pym.nprapps.org/pym.v1.min.js"></script>
     <script type="text/javascript">
 
       var pymChild = new pym.Child();
@@ -137,7 +137,7 @@
       var $nav = $('.nav-holder');
       
       $( document ).ready(function() {
-        $.getJSON( "//output.wbez.org/illinois_20161108.json", function( results ) {
+        $.getJSON( "https://output.wbez.org/illinois_20161108.json", function( results ) {
 
           var races_html = Handlebars.templates.races(results);
           $races.html(races_html);
@@ -172,6 +172,32 @@
         //     return result;
         // });
 
+        var pymMove = function(sel){
+        var value = sel.value; 
+          pymChild.scrollParentToChildEl(sel.value);
+        }
+
+        $(".dropdown-menu li a").click( function() {
+            var yourText = $(this).text();
+            console.log(yourText)
+        });
+
+        // $(document).on('click','.interesting',function(){
+        //   $("div.seat[data-interesting!='true']").toggle();
+        //   $("div.office[data-interesting!='true']").toggle();
+        //   $(this).toggleClass('active')
+        // });
+
+        $('.nav-holder').affix({
+          offset: {
+            top: function () {
+              return (this.top = $('#top').outerHeight(true)/2);
+            }
+          }
+        })
+
+        
+        // document ready
       });
 
       $(document).on('click','.uncontested',function(){
@@ -180,24 +206,11 @@
         pymChild.sendHeight()
       });
 
-      // $(document).on('click','.interesting',function(){
-      //   $("div.seat[data-interesting!='true']").toggle();
-      //   $("div.office[data-interesting!='true']").toggle();
-      //   $(this).toggleClass('active')
-      // });
-
-      $('.nav-holder').affix({
-        offset: {
-          top: function () {
-            return (this.top = $('#top').outerHeight(true)/2);
-          }
-        }
-      })
-
-      var pymMove = function(sel){
-        var value = sel.value; 
-        pymChild.scrollParentToChildEl(sel.value);
-      }
+      $(document).on('click','li a',function(){
+        v = $(this).attr('href').replace("#", "");
+        console.log(v)
+        pymChild.scrollParentToChildEl(v);
+      });
 
     </script>
 
