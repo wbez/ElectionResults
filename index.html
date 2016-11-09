@@ -137,15 +137,17 @@
       var $nav = $('.nav-holder');
       
       $( document ).ready(function() {
-        $.getJSON( "https://output.wbez.org/illinois_20161108.json", function( results ) {
+        var render = function() {
+          $.getJSON( "https://output.wbez.org/illinois_20161108.json", function( results ) {
 
-          var races_html = Handlebars.templates.races(results);
-          $races.html(races_html);
-          var nav_html = Handlebars.templates.nav(results)
-          $nav.html(nav_html);
+            var races_html = Handlebars.templates.races(results);
+            $races.html(races_html);
+            var nav_html = Handlebars.templates.nav(results)
+            $nav.html(nav_html);
 
-          pymChild.sendHeight()
-        });
+            pymChild.sendHeight()
+          });
+        }
 
         // Handlebars.registerHelper("everyOther", function (index, amount, scope) {
         //     if ( ++index % amount ) 
@@ -196,7 +198,9 @@
           }
         })
 
-        
+        render()
+        // window.setInterval(function(){ render(); }, 10000);
+
         // document ready
       });
 
