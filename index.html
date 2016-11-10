@@ -138,7 +138,7 @@
       
       $( document ).ready(function() {
         var render = function() {
-          $.getJSON( "https://output.wbez.org/illinois_20161108.json", function( results ) {
+          $.getJSON( "illinois_20161108.json", function( results ) {
 
             var races_html = Handlebars.templates.races(results);
             $races.html(races_html);
@@ -199,9 +199,10 @@
         })
 
         render()
-        window.setInterval(function(){ render(); }, 10000);
 
-        // document ready
+        // Auto reload the data
+        // window.setInterval(function(){ render(); }, 10000);
+
       });
 
       $(document).on('click','.uncontested',function(){

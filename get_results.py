@@ -6,10 +6,10 @@ except ImportError:
 	import simplejson as json
 from slugify import slugify
 
-RESULTS = '/srv/election-results/output/illinois_20161108.json'
-# RESULTS = 'illinois_20161108.json'
-SINGLE_RACES = '/srv/election-results/output/illinois_races_20161108.json'
-# SINGLE_RACES = 'illinois_races_20161108.json'
+# RESULTS = '/srv/election-results/output/illinois_20161108.json'
+RESULTS = 'illinois_20161108.json'
+# SINGLE_RACES = '/srv/election-results/output/illinois_races_20161108.json'
+SINGLE_RACES = 'illinois_races_20161108.json'
 
 # Setup and call the AP API.
 e = api.Election(electiondate='2016-11-08',resultslevel='state',testresults=False)
